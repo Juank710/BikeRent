@@ -1,2 +1,2 @@
 # BikeRent
-Software de renta de bicicletas
+Bicycle rental website project using Spring Boot
