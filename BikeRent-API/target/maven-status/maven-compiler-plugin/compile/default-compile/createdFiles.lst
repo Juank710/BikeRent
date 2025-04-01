@@ -1,7 +1,0 @@
-BikeRent\User\UserController.class
-BikeRent\BikeRentWebApplication.class
-BikeRent\Payment\Payment.class
-BikeRent\Payment\PaymentRepository.class
-BikeRent\User\UserRepository.class
-BikeRent\Payment\PaymentController.class
-BikeRent\User\User.class
