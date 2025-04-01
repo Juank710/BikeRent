@@ -1,4 +1,7 @@
 /home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/BikeRentWebApplication.java
+/home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Location/Location.java
+/home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Location/LocationController.java
+/home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Location/LocationRepository.java
 /home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Rol/Role.java
 /home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Rol/RoleController.java
 /home/chartest/Documentos/curso-java/BikeRent/BikeRent-API/src/main/java/BikeRent/Rol/RoleRepository.java
