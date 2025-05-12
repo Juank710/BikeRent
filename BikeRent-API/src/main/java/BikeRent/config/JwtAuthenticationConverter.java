@@ -18,18 +18,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/*Convierte el JWT recibido de keycloak es una estructura que Spring Security pueda usar. Aquí se mapean los roles.
+* Convierte un objeto Jwt (que representa el token que viene del cliente) en un objeto de autenticación (JwtAuthenticationToken) con los roles (authorities) necesarios para que Spring Security pueda tomar decisiones de acceso.
+*/
+
 @Component
 public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
     private final JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter =
             new JwtGrantedAuthoritiesConverter();
 
+    /*Nombre del claim que se usara como nombre principal(username)*/
     @Value("${jwt.auth.converter.principle-attribute}")
     private String principleAttribute;
 
+    /*Nombre del cliente keycloak, del cual se extraen los roles*/
     @Value("${jwt.auth.converter.resource-id}")
     private String resourceId;
 
+    /*Este método transforma el token JWT en un JwtAuthenticationToken para que SpringBoot lo pueda entender*/
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
 
