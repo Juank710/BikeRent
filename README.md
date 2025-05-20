@@ -61,24 +61,18 @@ Usa el wrapper de Maven incluido para compilar:
 mvnw.cmd clean package -DskipTests
 ```
 
-### 3. Crear el Volumen para Keycloak
-
-```bash
-docker volume create keycloak_data_springBoot
-```
-
-### 4. Construir la Imagen Docker
+### 3. Construir la Imagen Docker
 
 ```bash
 docker compose build java_app
 ```
 
-### 5. Iniciar los Servicios
+### 4. Iniciar los Servicios
 
 ```bash
 docker compose up
 ```
-### 6. Verificar el Despliegue
+### 5. Verificar el Despliegue
 
 Los servicios estarán disponibles en:
 
