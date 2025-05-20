@@ -18,7 +18,6 @@ public class KeycloakController {
     @Autowired
     private IKeycloakService keycloakService;
 
-
     @GetMapping("/search")
     public ResponseEntity<?> findAllUsers(){
         return ResponseEntity.ok(keycloakService.findAllUsers());
