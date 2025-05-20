@@ -4,7 +4,7 @@ Sistema de gestión de alquiler de bicicletas distribuidas en la ciudad, impleme
 
 ## Descripción del Proyecto
 
-BikeRent es una aplicación web que permite la gestión de un servicio de alquiler de bicicletas públicas distribuidas por la ciudad. El sistema está desarrollado con tecnologías modernas y una arquitectura orientada a microservicios.
+BikeRent es una aplicación web que permite la gestión de un servicio de alquiler de bicicletas de todo tipo distribuidas por la ciudad. El sistema está desarrollado con tecnologías modernas y una arquitectura orientada a microservicios.
 
 ### Características Principales
 
@@ -39,8 +39,7 @@ Para desplegar este proyecto necesitas:
 - Docker y Docker Compose
 - Java 21 (para desarrollo local)
 - Maven (incluido con wrapper)
-- Al menos 4GB de RAM disponible para los contenedores
-
+  
 ## Instrucciones de Despliegue
 
 ### 1. Clonar el Repositorio
@@ -79,52 +78,5 @@ docker compose build java_app
 ```bash
 docker compose up
 ```
+Se debe tener la base de datos de keycloack
 
-Para ejecutar en segundo plano:
-
-```bash
-docker compose up -d
-```
-
-### 6. Verificar el Despliegue
-
-Los servicios estarán disponibles en:
-
-- **API de BikeRent**: http://localhost:9090
-- **Documentación Swagger**: http://localhost:9090/swagger-ui.html
-- **Administración de Keycloak**: http://localhost:8080
-  - Usuario: admin
-  - Contraseña: admin
-
-## Configuración de Keycloak
-
-Al iniciar por primera vez, necesitarás configurar Keycloak:
-
-1. Accede a la consola de administración: http://localhost:8080
-2. Inicia sesión con el usuario `admin` y la contraseña `admin`
-3. Crea un nuevo Realm llamado `spring-boot-realm-dev`
-4. Dentro del Realm, crea un cliente llamado `spring-client-api-rest`
-5. Configura el cliente con:
-   - Client authentication: ON
-   - Authorization: ON
-   - Guarda el Client Secret para la configuración de la aplicación
-
-## Desarrollo
-
-Para contribuir al desarrollo, puedes trabajar con tu IDE favorito. El proyecto usa Spring Boot 3.4 y Java 21.
-
-### Variables de Entorno
-
-Las variables de entorno necesarias están configuradas en el archivo `docker-compose.yml`. Para desarrollo local, configura:
-
-- `DATABASE_URL`
-- `DATABASE_USERNAME`
-- `DATABASE_PASSWORD`
-
-## Licencia
-
-[Especificar la licencia del proyecto]
-
-## Contacto
-
-[Tu información de contacto o la del equipo]
