@@ -78,5 +78,13 @@ docker compose build java_app
 ```bash
 docker compose up
 ```
-Se debe tener la base de datos de keycloack
+### 6. Verificar el Despliegue
+
+Los servicios estarán disponibles en:
+
+- **API de BikeRent**: http://localhost:9090
+- **Documentación Swagger**: http://localhost:9090/swagger-ui.html
+- **Administración de Keycloak**: http://localhost:8080
+  - Usuario: admin
+  - Contraseña: admin
 
