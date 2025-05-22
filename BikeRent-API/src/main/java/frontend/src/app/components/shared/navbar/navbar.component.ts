@@ -1,6 +1,6 @@
-import { KeycloakService } from './../../../services/keycloak/keycloak.service';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'navbar',
@@ -13,10 +13,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private keycloakService: KeycloakService){}
+  constructor(private oauthService: OAuthService){}
 
-  async logout() {
-    await this.keycloakService.logout();
+  logout(){
+    this.oauthService.logOut();
   }
 
 }
