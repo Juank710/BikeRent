@@ -1,0 +1,9 @@
+<add-modal-bike></add-modal-bike>
+<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    @for (bike of bikes; track bike.id) {
+        <bike-card model="{{ bikes[$index].model }}" src_image="{{ bikes[$index].src_image }}" id="{{ bikes[$index].id }}" type="{{ bikes[$index].type }}" brand="{{ bikes[$index].brand }}" size="{{ bikes[$index].size }}" availability="{{ bikes[$index].availability }}"  description="{{ bikes[$index].description }}" price_per_hour="{{ bikes[$index].pricePerHour }}"></bike-card>
+    }
+</div>
+
+
+

@@ -1,0 +1,24 @@
+<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="ml-3 mt-1" (click)="open()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+        />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+    </svg>
+</button>
+
+<p-dialog header="Bicycle Details" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '40vw' }" [modal]="true" class="dark:text-white">
+    <div class="w-full overflow-hidden mb-3">
+        <img class="w-full h-full object-cover" *ngIf="imageSrc" [src]="imageSrc" alt="bike image" />
+    </div>
+    <p><span>ID:</span> {{ id() }}</p>
+    <p><span>Brand:</span> {{ brand() }}</p>
+    <p><span>Model:</span> {{ model() }}</p>
+    <p><span>Type:</span> {{ type() }}</p>
+    <p><span>Size:</span> {{ size() }}</p>
+    <p><span>Availability:</span> {{ availability() }}</p>
+    <p><span>Price per hour:</span> ${{ price_per_hour() }}</p>
+    <p><span>Description:</span> {{ description() }}</p>
+</p-dialog>

@@ -1,0 +1,20 @@
+<div class="w-100 max-w-sm border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 mr-5" styleClass="dark:!bg-surface-900">
+    <div class="h-48 w-full overflow-hidden">
+        <img class="w-full h-full object-cover" *ngIf="imageSrc" [src]="imageSrc" alt="bike image" />
+    </div>
+    <div class="pl-5 pb-4 pt-4 pr-4">
+        <a>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ model() }}</h5>
+        </a>
+        <br />
+        <div class="flex">
+            <button class="mr-2 text-gray-900 dark:text-white">{{ id() }}</button>
+            <button class="mr-2 text-gray-900 dark:text-white">{{ type() }}</button>
+            <div class="flex justify-end">
+                <update-modal-bikes model="{{model()}}" brand="{{brand()}}" size="{{size()}}" type="{{type()}}" availability="{{availability()}}" description="{{description()}}" bikeId="{{id()}}"></update-modal-bikes>
+                <delete-modal-bike id="{{id()}}" model="{{model()}}"></delete-modal-bike>
+                <view-modal-card src_image="{{src_image()}}" id="{{id()}}" brand="{{brand()}}" model="{{model()}}" type="{{type()}}" size="{{size()}}" price_per_hour="{{price_per_hour()}}" description="{{description()}}" availability="{{availability()}}"></view-modal-card>
+            </div>
+        </div>
+    </div>
+</div>
