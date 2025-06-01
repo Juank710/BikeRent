@@ -1,0 +1,60 @@
+body {
+    background:  url(../img/bg-login.jpg) repeat-x 50% 0 !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    height: 70em !important;
+}
+
+#kc-form-buttons input{
+    background-color: #5AAA73;
+}
+
+#kc-header{
+    display: flex;
+    justify-content: center;
+}
+
+#kc-header-wrapper {
+    text-indent: -9999px;
+    width: 300px;
+    height: 100px;
+    background: url('../img/LogoBikeRent.ico') no-repeat center center;
+    background-size: contain; 
+}
+
+.login-pf-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-pf-page .login-pf-page-header {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#kc-login{
+    background-color: #5AAA73;
+}
+
+.card-pf {
+    width: 40%;
+    margin: 0 auto;
+    background: var(--pf-global--palette--green-50); /* verde muy suave */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1.5px solid var(--pf-global--palette--green-300); /* borde verde medio */
+    box-shadow: 0 4px 8px rgba(62, 134, 53, 0.15); /* sombra verde suave */
+    color: var(--pf-global--palette--green-700); /* texto verde oscuro para contraste */
+}
+
+
+.login-pf-settings a {
+    color: green;
+}
+
+#kc-registration a{
+    color: green;
+}
+
+

@@ -3,7 +3,6 @@ import { ButtonDemo } from './buttondemo';
 import { ChartDemo } from './chartdemo';
 import { FileDemo } from './filedemo';
 import { FormLayoutDemo } from './formlayoutdemo';
-import { Bikes } from './bikes-page';
 import { ListDemo } from './listdemo';
 import { MediaDemo } from './mediademo';
 import { MessagesDemo } from './messagesdemo';
@@ -14,6 +13,7 @@ import { Users } from './users-page';
 import { OverlayDemo } from './overlaydemo';
 import { TreeDemo } from './treedemo';
 import { MenuDemo } from './menudemo';
+import { Bikes } from './components/bikes-page/bikes-page.component';
 
 export default [
     { path: 'button', data: { breadcrumb: 'Button' }, component: ButtonDemo },

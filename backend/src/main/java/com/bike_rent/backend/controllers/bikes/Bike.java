@@ -1,30 +1,40 @@
 package com.bike_rent.backend.controllers.bikes;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="bikes")
 public class Bike {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
-    @Column(name = "brand")
+    private Integer id;
+
+    @Column(name = "brand", nullable = false, length = 20)
     private String brand;
-    @Column(name = "model")
+
+    @Column(name = "model", nullable = false, length = 250)
     private String model;
-    @Column(name = "type")
+
+    @Column(name = "type", nullable = false, length = 20)
     private String type;
-    @Column(name = "size")
+
+    @Column(name = "size", nullable = false, length = 20)
     private String size;
-    @Column(name = "price_per_hour")
-    private int price_per_hour;
-    @Column(name = "availability")
-    private boolean availability;
+
+    @Column(name = "price_per_hour", nullable = false, precision = 10, scale = 2)
+    private BigDecimal pricePerHour;
+
+    @Column(name = "availability", nullable = false, length = 20)
+    private String availability;
+
     @Column(name = "src_image")
     private String src_image;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     public String getSrc_image() {
         return src_image;
@@ -34,11 +44,11 @@ public class Bike {
         this.src_image = src_image;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,20 +60,20 @@ public class Bike {
         this.brand = brand;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getModel() {
         return model;
     }
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getSize() {
@@ -74,19 +84,27 @@ public class Bike {
         this.size = size;
     }
 
-    public int getPrice_per_hour() {
-        return price_per_hour;
+    public BigDecimal getPricePerHour() {
+        return pricePerHour;
     }
 
-    public void setPrice_per_hour(int price_per_hour) {
-        this.price_per_hour = price_per_hour;
+    public void setPricePerHour(BigDecimal pricePerHour) {
+        this.pricePerHour = pricePerHour;
     }
 
-    public boolean isAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(boolean availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

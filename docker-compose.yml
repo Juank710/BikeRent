@@ -26,7 +26,8 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     volumes:
-      - keycloak_data_bike_rent:/opt/keycloak/data
+      - ./keycloak-backup:/opt/keycloak/data
+      - ./keycloak/fieryred:/opt/keycloak/themes/fieryred
     networks:
       - bike_network
   

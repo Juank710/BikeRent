@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
     selector: 'app-topbar',
@@ -16,7 +17,7 @@ import { LayoutService } from '../service/layout.service';
                 <i class="pi pi-bars"></i>
             </button>
             <a class="layout-topbar-logo" routerLink="/">
-                <img src="LogoBikeRent.png" class="topbar-logo-img" style="width: 20%;"/>
+                <img src="LogoBikeRent.png" class="topbar-logo-img" style="width: 20%;" />
                 <span>Bike-Rent</span>
             </a>
         </div>
@@ -46,13 +47,18 @@ import { LayoutService } from '../service/layout.service';
                 <i class="pi pi-ellipsis-v"></i>
             </button>
 
-            <div class="layout-topbar-menu hidden lg:block">
-                <div class="layout-topbar-menu-content">
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-user"></i>
-                        <span>Profile</span>
-                    </button>
-                </div>
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="" type="button">
+                <i class="pi pi-user"></i>
+            </button>
+            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-black" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a (click)="accountManagement()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Manage account</a>
+                    </li>
+                    <li>
+                        <a (click)="logout()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>`
@@ -60,9 +66,27 @@ import { LayoutService } from '../service/layout.service';
 export class AppTopbar {
     items!: MenuItem[];
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+        public layoutService: LayoutService,
+        private oauthService: OAuthService
+    ) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    logout() {
+        this.oauthService.logOut();
+    }
+
+    accountManagement() {
+        const issuer = this.oauthService.issuer;
+
+        if (issuer) {
+            // Redirige al panel de cuenta de Keycloak
+            window.location.href = `${issuer}/account`;
+        } else {
+            console.error('Issuer no definido en OAuthService');
+        }
     }
 }

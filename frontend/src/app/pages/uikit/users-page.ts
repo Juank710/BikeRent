@@ -52,7 +52,7 @@ interface expandedRows {
         WarningUserUpdateModalComponent
     ],
     template: ` <div class="card">
-        <div class="font-semibold text-xl mb-4">User Management</div>
+        <div class="font-semibold text-xl mb-4 dark:text-white">User Management</div>
         <p-table
             #dt1
             [value]="users"
@@ -138,10 +138,17 @@ interface expandedRows {
                     <td>{{ user.username }}</td>
                     <td>{{ user.firstName }} {{ user.lastName }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.roles[0] }}</td>
+                    <td>{{ getUserLabel(user) }}</td>
                     <td>
                         <div class="flex gap-4">
-                            <warning-user-update-modal  input_username="{{user.username}}" input_idUser=" {{user.id}} " input_email=" {{ user.email }} " input_firstName=" {{ user.firstName }} " input_lastName=" {{ user.lastName }} " input_role="{{user.role}}"></warning-user-update-modal>
+                            <warning-user-update-modal
+                                input_username="{{ user.username }}"
+                                input_idUser=" {{ user.id }} "
+                                input_email=" {{ user.email }} "
+                                input_firstName=" {{ user.firstName }} "
+                                input_lastName=" {{ user.lastName }} "
+                                input_role="{{ user.role }}"
+                            ></warning-user-update-modal>
                             <warning-user-delete-modal idUser=" {{ user.id }} " username=" {{ user.username }} " role=" {{ user.roles[0] }} "></warning-user-delete-modal>
                         </div>
                     </td>
@@ -257,5 +264,14 @@ export class Users implements OnInit {
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+    getUserLabel(user: any): string {
+        const roles = user.roles || [];
+        const groups = user.groups || [];
+
+        if (roles.includes('admin-role')) return 'admin-role';
+        if (roles.includes('user-role') || groups.includes('users-group')) return 'user-role';
+        return 'user-role';
     }
 }

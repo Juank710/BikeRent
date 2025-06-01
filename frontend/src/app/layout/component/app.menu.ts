@@ -46,7 +46,6 @@ export class AppMenu {
 
     constructor(
         private oauthService: OAuthService,
-        private httpClient: HttpClient
     ) {}
 
     logout() {
