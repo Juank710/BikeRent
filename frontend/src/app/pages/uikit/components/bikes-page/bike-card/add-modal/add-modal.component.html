@@ -2,14 +2,14 @@
     data-modal-target="crud-modal"
     data-modal-toggle="crud-modal"
     class="hover:bg-[#10B981] text-[#10B981] font-semibold hover:text-white py-2 px-4 border border-[#10B981] hover:border-transparent rounded mb-3"
-    label="Show"
+    label="Mostrar"
     [style]="{ width: 'auto' }"
     (click)="open()"
 >
-    Add a new bycicle
+    Add new bike
 </button>
-<p-dialog header="Add new bycicle" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '40vw' }" [modal]="true" class="dark:text-white">
-    <form [formGroup]="bikeForm" (submit)="handleSubmit()">
+<p-dialog header="Agregar nueva bicicleta" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '40vw' }" [modal]="true" class="dark:text-white">
+    <form [formGroup]="bikeForm" (ngSubmit)="handleSubmit()">
         <div class="flex gap-4">
             <div class="flex-1">
                 <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
@@ -19,9 +19,14 @@
                     id="model"
                     formControlName="model"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Model"
-                    required=""
+                    [class.border-red-500]="model.invalid && model.touched"
+                    placeholder="Modelo de la bicicleta"
+                    maxlength="50"
                 />
+                <div *ngIf="model.invalid && model.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="model.errors?.['required']">The model is required</div>
+                    <div *ngIf="model.errors?.['maxlength']">El modelo no puede exceder 50 caracteres</div>
+                </div>
             </div>
             <div class="flex-1">
                 <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
@@ -31,9 +36,14 @@
                     id="brand"
                     formControlName="brand"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Brand"
-                    required
+                    [class.border-red-500]="brand.invalid && brand.touched"
+                    placeholder="Marca de la bicicleta"
+                    maxlength="25"
                 />
+                <div *ngIf="brand.invalid && brand.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="brand.errors?.['required']">The brand is required</div>
+                    <div *ngIf="brand.errors?.['maxlength']">La marca no puede exceder 25 caracteres</div>
+                </div>
             </div>
         </div>
         <br />
@@ -44,19 +54,23 @@
                     id="type"
                     formControlName="type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="type.invalid && type.touched"
                 >
-                    <option selected="">Select type</option>
+                    <option value="">Select type</option>
                     <option value="MTB">MTB</option>
-                    <option value="Urban">Urban</option>
-                    <option value="Hybrid Bike">Hybrid Bike</option>
-                    <option value="E-Bike">E-Bike</option>
-                    <option value="City Bike">City Bike</option>
+                    <option value="Urban">Road</option>
+                    <option value="Hybrid Bike">Hybrid</option>
+                    <option value="E-Bike">Electric</option>
+                    <option value="City Bike">Urban</option>
                     <option value="BMX">BMX</option>
-                    <option value="Gravel Bike">Gravel Bike</option>
-                    <option value="Folding Bike">Folding Bike</option>
-                    <option value="Time Trial/Triathlon Bike">Time Trial/Triathlon Bike</option>
+                    <option value="Gravel Bike">Gravel</option>
+                    <option value="Folding Bike">Folding bike</option>
+                    <option value="Time Trial/Triathlon Bike">Time Trial</option>
                     <option value="Fat Bike">Fat Bike</option>
                 </select>
+                <div *ngIf="type.invalid && type.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="type.errors?.['required']">Type is required</div>
+                </div>
             </div>
             <div class="flex-1">
                 <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
@@ -64,8 +78,9 @@
                     id="size"
                     formControlName="size"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="size.invalid && size.touched"
                 >
-                    <option selected="">Select size</option>
+                    <option value="">Select size</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>
                     <option value="M">M</option>
@@ -74,6 +89,9 @@
                     <option value="XXL">XXL</option>
                     <option value="One Size">One size</option>
                 </select>
+                <div *ngIf="size.invalid && size.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="size.errors?.['required']">Size is required</div>
+                </div>
             </div>
         </div>
         <br />
@@ -86,12 +104,19 @@
                     id="pricePerHour"
                     formControlName="pricePerHour"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Price per hour"
-                    required=""
+                    [class.border-red-500]="pricePerHour.invalid && pricePerHour.touched"
+                    placeholder="Precio por hora (5000-15000)"
+                    min="5000"
+                    max="15000"
                 />
+                <div *ngIf="pricePerHour.invalid && pricePerHour.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="pricePerHour.errors?.['required']">Price is required</div>
+                    <div *ngIf="pricePerHour.errors?.['min']">Min price is $5,000</div>
+                    <div *ngIf="pricePerHour.errors?.['max']">Max price is $15,000</div>
+                </div>
             </div>
             <div class="flex-1">
-                <label for="src_img" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Img file</label>
+                <label for="src_img" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image file</label>
                 <input
                     type="file"
                     id="image"
@@ -99,30 +124,50 @@
                     accept="image/*"
                     (change)="upload($event)"
                 />
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="src_img">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="src_img">SVG, PNG, JPG o GIF (MÁX. 800x400px).</p>
             </div>
         </div>
         <br /><br />
         <div class="flex gap-4">
-            <label for="description">Add a description</label>
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add a description (Optional)</label>
             <textarea
                 id="description"
                 name="description"
                 rows="5"
                 formControlName="description"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                [class.border-red-500]="description.invalid && description.touched"
+                placeholder="Descripción de la bicicleta (máximo 100 caracteres)"
+                maxlength="100"
             >
             </textarea>
+            <div *ngIf="description.invalid && description.touched" class="text-red-500 text-sm mt-1">
+                <div *ngIf="description.errors?.['maxlength']">Description cannot exceed 100 characters</div>
+            </div>
         </div>
         <br /><br />
         <div class="flex gap-4 justify-end">
-            <button class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" (click)="close()">Cancel</button>
+            <button 
+                type="button"
+                class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
+                (click)="close()"
+            >
+                Cancel
+            </button>
 
-            <button class="text-white inline-flex items-center bg-[#10B981] hover:bg-[#1a8b66] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" (click)="close()">
+            <button 
+                type="submit"
+                class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                [class.bg-[#10B981]]="bikeForm.valid"
+                [class.hover:bg-[#1a8b66]]="bikeForm.valid"
+                [class.bg-gray-400]="!bikeForm.valid"
+                [class.cursor-not-allowed]="!bikeForm.valid"
+                [disabled]="!bikeForm.valid"
+            >
                 <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                 </svg>
-                Add new bycicle
+                Add new bike
             </button>
         </div>
     </form>

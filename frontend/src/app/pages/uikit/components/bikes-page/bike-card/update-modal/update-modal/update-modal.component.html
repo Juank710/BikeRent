@@ -14,112 +14,182 @@
         />
     </svg>
 </button>
-<p-dialog header="Update bycicle" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" class="dark:text-white">
+
+<p-dialog header="Update bicycle" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" class="dark:text-white">
     <form [formGroup]="updateBike" (submit)="putBike()">
         <div class="flex gap-4">
             <div class="flex-1">
-                <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
+                <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Model <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="model"
                     id="model"
-                    value="{{model()}}"
                     formControlName="model"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Model"
-                    required=""
+                    maxlength="50"
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="modelInput.invalid && modelInput.touched"
+                    [class.border-gray-300]="!modelInput.invalid || !modelInput.touched"
+                    placeholder="Enter the model (max. 50 characters)"
                 />
+                <div *ngIf="modelInput.invalid && modelInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getModelError() }}
+                </div>
             </div>
             <div class="flex-1">
-                <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
+                <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Brand <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="brand"
                     id="brand"
-                    value="{{brand()}}"
                     formControlName="brand"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Brand"
-                    required=""
+                    maxlength="25"
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="brandInput.invalid && brandInput.touched"
+                    [class.border-gray-300]="!brandInput.invalid || !brandInput.touched"
+                    placeholder="Enter the brand (max. 25 characters)"
                 />
+                <div *ngIf="brandInput.invalid && brandInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getBrandError() }}
+                </div>
             </div>
         </div>
         <br>
         <div class="flex gap-4">
             <div class="flex-1">
-                <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Type <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="type"
                     id="type"
-                    value="{{type()}}"
                     formControlName="type"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type"
-                    required=""
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="typeInput.invalid && typeInput.touched"
+                    [class.border-gray-300]="!typeInput.invalid || !typeInput.touched"
+                    placeholder="Ex: Mountain, Road, Urban"
                 />
+                <div *ngIf="typeInput.invalid && typeInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getTypeError() }}
+                </div>
             </div>
             <div class="flex-1">
-                <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+                <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Size <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="size"
                     id="size"
-                    value="{{size()}}"
                     formControlName="size"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Size"
-                    required=""
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="sizeInput.invalid && sizeInput.touched"
+                    [class.border-gray-300]="!sizeInput.invalid || !sizeInput.touched"
+                    placeholder="Ex: M, L, 26 inches"
                 />
+                <div *ngIf="sizeInput.invalid && sizeInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getSizeError() }}
+                </div>
             </div>
         </div>
         <br>
         <div class="flex gap-4">
             <div class="flex-1">
-                <label for="availability" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Availability</label>
-                <input
-                    type="text"
+                <label for="availability" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Availability <span class="text-red-500">*</span>
+                </label>
+                <select
                     name="availability"
                     id="availability"
-                    value="{{availability()}}"
                     formControlName="availability"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Availability"
-                    required=""
-                />
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="availabilityInput.invalid && availabilityInput.touched"
+                    [class.border-gray-300]="!availabilityInput.invalid || !availabilityInput.touched"
+                >
+                    <option value="">Select availability</option>
+                    <option value="Disponible">Available</option>
+                    <option value="No disponible">Not available</option>
+                </select>
+                <div *ngIf="availabilityInput.invalid && availabilityInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getAvailabilityError() }}
+                </div>
             </div>
             <div class="flex-1">
-                <label for="pricePerHour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price per hour</label>
-                <input
-                    type="number"
-                    name="pricePerHour"
-                    id="pricePerHour"
-                    value= ""
-                    formControlName="pricePerHour"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Price per hour"
-                    required=""
-                />
+                <label for="pricePerHour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Price per hour <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input
+                        type="number"
+                        name="pricePerHour"
+                        id="pricePerHour"
+                        formControlName="pricePerHour"
+                        min="5000"
+                        max="15000"
+                        step="100"
+                        class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pl-8 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        [class.border-red-500]="pricePerHourInput.invalid && pricePerHourInput.touched"
+                        [class.border-gray-300]="!pricePerHourInput.invalid || !pricePerHourInput.touched"
+                        placeholder="5000 - 15000"
+                    />
+                </div>
+                <div *ngIf="pricePerHourInput.invalid && pricePerHourInput.touched" class="text-red-500 text-xs mt-1">
+                    {{ getPriceError() }}
+                </div>
             </div>
         </div>
         <br><br>
         <div class="flex gap-4">
-            <label for="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                rows="5"
-                formControlName="description"
-                value = "{{description()}}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            >
-            </textarea>
+            <div class="flex-1">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Description (Optional)
+                </label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="4"
+                    formControlName="description"
+                    maxlength="100"
+                    class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    [class.border-red-500]="descriptionInput.invalid && descriptionInput.touched"
+                    [class.border-gray-300]="!descriptionInput.invalid || !descriptionInput.touched"
+                    placeholder="Bicycle description (max. 100 characters)"
+                ></textarea>
+                <div class="flex justify-between items-center mt-1">
+                    <div *ngIf="descriptionInput.invalid && descriptionInput.touched" class="text-red-500 text-xs">
+                        {{ getDescriptionError() }}
+                    </div>
+                    <div class="text-xs text-gray-500 ml-auto">
+                        {{ descriptionInput.value?.length || 0 }}/100
+                    </div>
+                </div>
+            </div>
         </div>
         <br><br>
         <div class="flex gap-4 justify-end">
-            <button class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" (click)="close()">Cancel</button>
-            <button class="text-white inline-flex items-center bg-[#10B981] hover:bg-[#1a8b66] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" label="Save" (click)="close()">
-                Update bycicle
+            <button 
+                type="button"
+                class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" 
+                (click)="close()"
+            >
+                Cancel
+            </button>
+            <button 
+                type="submit"
+                class="text-white inline-flex items-center font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                [class.bg-[#10B981]]="isFormValid"
+                [class.hover:bg-[#1a8b66]]="isFormValid"
+                [class.bg-gray-400]="!isFormValid"
+                [class.cursor-not-allowed]="!isFormValid"
+                [disabled]="!isFormValid"
+                (click)="putBike()"
+            >
+                Update bicycle
             </button>
         </div>
     </form>

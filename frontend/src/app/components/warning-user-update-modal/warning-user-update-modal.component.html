@@ -14,70 +14,157 @@
         />
     </svg>
 </button>
-<p-dialog header="Update User" [(visible)]="display" [breakpoints]="{ '975px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true">
-    <form [formGroup]="updateForm" (submit)="handleSubmit()">
+
+<p-dialog 
+    header="Update User" 
+    [(visible)]="display" 
+    [breakpoints]="{ '975px': '75vw' }" 
+    [style]="{ width: '50vw' }" 
+    [modal]="true"
+    [closable]="!isLoading"
+    [dismissableMask]="!isLoading"
+>
+    <form [formGroup]="updateForm" (ngSubmit)="handleSubmit($event)" novalidate>
+        <!-- Names -->
         <div class="flex gap-4">
             <div class="flex-1">
-                <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    First Name <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="firstName"
                     id="firstName"
-                    value="{{input_firstName()}}"
                     formControlName="firstName"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="First Name"
-                    required=""
+                    [class]="'bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ' + 
+                             (hasFieldError('firstName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300')"
+                    placeholder="Enter first name"
+                    maxlength="50"
+                    [disabled]="isLoading"
                 />
+                <div *ngIf="getFirstNameErrors()" class="mt-1 text-sm text-red-600">
+                    {{ getFirstNameErrors() }}
+                </div>
             </div>
+            
             <div class="flex-1">
-                <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Last Name <span class="text-red-500">*</span>
+                </label>
                 <input
                     type="text"
                     name="lastName"
                     id="lastName"
-                    value="{{ input_lastName() }}"
                     formControlName="lastName"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Last Name"
-                    required
+                    [class]="'bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ' + 
+                             (hasFieldError('lastName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300')"
+                    placeholder="Enter last name"
+                    maxlength="50"
+                    [disabled]="isLoading"
                 />
+                <div *ngIf="getLastNameErrors()" class="mt-1 text-sm text-red-600">
+                    {{ getLastNameErrors() }}
+                </div>
             </div>
         </div>
+        
         <br />
+        
+        <!-- Email and Password -->
         <div class="flex gap-4">
             <div class="flex-1">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Email</label>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Email <span class="text-red-500">*</span>
+                </label>
                 <input
-                    type="text"
+                    type="email"
                     name="email"
                     id="email"
-                    value="{{ input_email() }}"
                     formControlName="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Email"
-                    required=""
+                    [class]="'bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ' + 
+                             (hasFieldError('email') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300')"
+                    placeholder="example@email.com"
+                    maxlength="100"
+                    [disabled]="isLoading"
                 />
+                <div *ngIf="getEmailErrors()" class="mt-1 text-sm text-red-600">
+                    {{ getEmailErrors() }}
+                </div>
             </div>
+            
             <div class="flex-1">
-                <label for="pass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Password</label>
-                <input
-                    type="password"
-                    name="pass"
-                    id="pass"
-                    formControlName="password"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Password"
-                    required=""
-                />
+                <label for="pass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    New Password 
+                    <span class="text-gray-500 text-xs">(leave empty to keep current)</span>
+                </label>
+                <div class="relative">
+                    <input
+                        type="password"
+                        name="pass"
+                        id="pass"
+                        formControlName="password"
+                        [class]="'bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ' + 
+                                 (hasFieldError('password') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300')"
+                        placeholder="New password (optional)"
+                        [disabled]="isLoading"
+                    />
+                    <button
+                        type="button"
+                        *ngIf="password.value && !isLoading"
+                        (click)="clearPassword()"
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                        title="Clear password"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div *ngIf="getPasswordErrors()" class="mt-1 text-sm text-red-600">
+                    {{ getPasswordErrors() }}
+                </div>
+                <div *ngIf="!hasFieldError('password') && password.value" class="mt-1 text-xs text-gray-500">
+                    Min. 8 characters, include: uppercase, lowercase, number and special character
+                </div>
             </div>
         </div>
+        
         <br><br>
+        
+        <!-- Current user information -->
+        <div class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div class="text-sm text-blue-800 dark:text-blue-300">
+                <strong>Current user:</strong> {{ input_username() }} | <strong>Role:</strong> {{ input_role() }}
+            </div>
+        </div>
+        
+        <!-- Buttons -->
         <div class="flex gap-4 justify-end">
-            <button class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" (click)="close()">Cancel</button>
+            <button 
+                type="button"
+                class="text-[#10B981] inline-flex items-center hover:bg-[#ff1515] hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200"
+                (click)="close()"
+                [disabled]="isLoading"
+            >
+                <svg *ngIf="!isLoading" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Cancel
+            </button>
 
-            <button class="text-white inline-flex items-center bg-[#10B981] hover:bg-[#1a8b66] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" label="Save" (click)="close()">
-                Update User
+            <button 
+                type="submit"
+                class="text-white inline-flex items-center bg-[#10B981] hover:bg-[#1a8b66] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="isLoading || updateForm.invalid"
+            >
+                <svg *ngIf="isLoading" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <svg *ngIf="!isLoading" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                {{ isLoading ? 'Updating...' : 'Update User' }}
             </button>
         </div>
     </form>
